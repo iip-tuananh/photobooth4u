@@ -70,7 +70,7 @@ Admin Panel - {{ $config->web_title }}
 <!-- Small boxes (Stat box) -->
 <div class="row">
     <!-- Card: Dự án -->
-    <div class="col-lg-3 col-md-6 mb-4">
+    {{-- <div class="col-lg-3 col-md-6 mb-4">
         <div class="small-box bg-primary">
             <div class="inner text-center">
                 <h3 class="text-orange">{{ $data['rooms'] ?? 0 }}</h3>
@@ -83,10 +83,10 @@ Admin Panel - {{ $config->web_title }}
                 Xem chi tiết <i class="fas fa-arrow-circle-right"></i>
             </a>
         </div>
-    </div>
+    </div> --}}
 
     <!-- Card: Dịch vụ -->
-    <div class="col-lg-3 col-md-6 mb-4">
+    <div class="col-lg-4 col-md-6 mb-4">
         <div class="small-box bg-success">
             <div class="inner text-center">
                 <h3 class="text-orange">{{ $data['services'] ?? 0 }}</h3>
@@ -102,7 +102,7 @@ Admin Panel - {{ $config->web_title }}
     </div>
 
     <!-- Card: Bài viết Blog -->
-    <div class="col-lg-3 col-md-6 mb-4">
+    <div class="col-lg-4 col-md-6 mb-4">
         <div class="small-box bg-info">
             <div class="inner text-center">
                 <h3 class="text-orange">{{ $data['blogs'] ?? 0 }}</h3>
@@ -118,11 +118,11 @@ Admin Panel - {{ $config->web_title }}
     </div>
 
     <!-- Card: Khách hàng liên hệ -->
-    <div class="col-lg-3 col-md-6 mb-4">
+    <div class="col-lg-4 col-md-6 mb-4">
         <div class="small-box bg-warning">
             <div class="inner text-center">
                 <h3 class="text-orange">{{ $data['contacts'] ?? 0 }}</h3>
-                <p>Liên hệ</p>
+                <p>Khách hàng liên hệ</p>
             </div>
             <div class="icon">
                 <i class="fas fa-envelope"></i>
