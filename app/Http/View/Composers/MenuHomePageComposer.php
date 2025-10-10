@@ -31,6 +31,12 @@ class MenuHomePageComposer
             ->orderBy('sort_order')
             ->get();
 
-        $view->with(['categories' => $categories, 'postCategories' => $postCategories, 'serviceCategories' => $serviceCategories]);
+        $projectCategories = PostCategory::query()
+            ->where('type', PostCategory::TYPE_PROJECT)
+            ->where('parent_id', 0)
+            ->orderBy('sort_order')
+            ->get();
+
+        $view->with(['categories' => $categories, 'postCategories' => $postCategories, 'serviceCategories' => $serviceCategories, 'projectCategories' => $projectCategories]);
     }
 }

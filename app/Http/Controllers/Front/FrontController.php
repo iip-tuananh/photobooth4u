@@ -93,8 +93,9 @@ class FrontController extends Controller
             ->orderBy('created_at', 'desc')->get();
 
         // $data['videoBlock'] = VideoBlock::query()->with('image')->first();
-        $data['amenities'] = Amenities::query()->with('image')->latest()->get();
+        // $data['amenities'] = Amenities::query()->with('image')->latest()->get();
         // $data['newsBlock'] = NewsBlock::query()->with('image')->first();
+        $data['projects'] = Project::query()->with(['image', 'galleries.image'])->where('show_home_page', 1)->where('status', Project::XUAT_BAN)->orderBy('created_at', 'desc')->limit(10)->get();
         $data['posts'] = Post::query()->with('image')->latest()->limit(6)->get();
         $data['reviews'] = Review::query()->with('image')->latest()->get();
         $data['banners'] = Banner::query()->with('image')->whereNull('type')
@@ -161,6 +162,28 @@ class FrontController extends Controller
         $categoryServices = PostCategory::query()->with('image')->where('type', PostCategory::TYPE_SERVICE)->get();
 
         return view('site.service_detail', compact('service', 'otherServices', 'categoryServices'));
+    }
+
+    public function projects(Request $request, $slug = null)
+    {
+        $categoryProject = PostCategory::query()->with('image')->where('slug', $slug)->firstOrFail();
+        $projects = Project::query()->with(['image', 'galleries.image'])->where('cate_id', $categoryProject->id)
+            ->where('status', 1)
+            ->orderBy('created_at', 'desc')
+            ->paginate(40);
+
+        return view('site.projects', compact('categoryProject', 'projects'));
+    }
+
+    public function getProjectDetail(Request $request, $slug)
+    {
+        $project = Project::query()->with(['category', 'image', 'galleries.image'])->where('slug', $slug)->firstOrFail();
+        $otherProjects = Project::query()->whereNotIn('id', [$project->id])
+            ->where('status', 1)
+            ->latest()->get();
+        $categoryProjects = PostCategory::query()->with('image')->where('type', PostCategory::TYPE_PROJECT)->get();
+
+        return view('site.project_detail', compact('project', 'otherProjects', 'categoryProjects'));
     }
 
     public function blogs(Request $request, $slug = null)

@@ -164,7 +164,8 @@
                                 </h1>
                             </div>
                             <div class="col-lg-6">
-                                <p class="wptb-item--description">Chúng tôi rất đam mê <span>nhận lưu lại những kỷ niệm đẹp nhất của bạn</span>
+                                <p class="wptb-item--description">Chúng tôi rất đam mê <span>nhận lưu lại những kỷ niệm đẹp
+                                        nhất của bạn</span>
                                     và truyền cảm hứng cho mọi thời điểm trong cuộc sống.
                                 </p>
                             </div>
@@ -312,13 +313,15 @@
             <div class="swiper-container wptb-swiper-slider-four">
                 <!-- swiper slides -->
                 <div class="swiper-wrapper">
-                    @foreach ($amenities as $amenity)
+                    @foreach ($projects as $project)
                         <!-- Slide Item -->
                         <div class="swiper-slide">
                             <div class="wptb-slider--item">
                                 <div class="wptb-slider--image">
-                                    <img src="{{ $amenity->image ? $amenity->image->path : 'https://placehold.co/600x400' }}"
-                                        alt="" loading="lazy">
+                                    <a href="{{ route('front.getProjectDetail', $project->slug) }}">
+                                        <img src="{{ $project->image ? $project->image->path : 'https://placehold.co/600x400' }}"
+                                            alt="" loading="lazy">
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -338,8 +341,8 @@
             </div>
             <!-- Layer Image -->
             <div class="wptb-item-layer wptb-item-layer-three both-version">
-                <img src="/site/images/overlay.png" alt="img" loading="lazy">
-                <img src="/site/images/overlay-light.png" alt="img" loading="lazy">
+                {{-- <img src="/site/images/overlay.png" alt="img" loading="lazy">
+                <img src="/site/images/overlay-light.png" alt="img" loading="lazy"> --}}
             </div>
         </section>
 
@@ -424,7 +427,8 @@
                                 <div class="wptb-blog-grid1 active highlight wow fadeInLeft">
                                     <div class="wptb-item--inner">
                                         <div class="wptb-item--image">
-                                            <a href="{{ route('front.blogDetail', $post->slug) }}" class="wptb-item-link"><img
+                                            <a href="{{ route('front.blogDetail', $post->slug) }}"
+                                                class="wptb-item-link"><img
                                                     src="{{ $post->image ? $post->image->path : 'https://placehold.co/600x400' }}"
                                                     alt="img" loading="lazy"></a>
                                         </div>
@@ -469,7 +473,8 @@
                                                 <input type="text" name="name" class="form-control"
                                                     placeholder="Họ tên*" required>
 
-                                                <span class="invalid-feedback d-block" role="alert" ng-if="errors.name">
+                                                <span class="invalid-feedback d-block" role="alert"
+                                                    ng-if="errors.name">
                                                     <strong><% errors.name[0] %></strong>
                                                 </span>
                                             </div>
@@ -479,7 +484,8 @@
                                                 <input type="email" name="email" class="form-control"
                                                     placeholder="Email*" required>
 
-                                                <span class="invalid-feedback d-block" role="alert" ng-if="errors.email">
+                                                <span class="invalid-feedback d-block" role="alert"
+                                                    ng-if="errors.email">
                                                     <strong><% errors.email[0] %></strong>
                                                 </span>
                                             </div>
@@ -489,7 +495,8 @@
                                                 <input type="text" name="phone" class="form-control"
                                                     placeholder="Số điện thoại">
 
-                                                <span class="invalid-feedback d-block" role="alert" ng-if="errors.phone">
+                                                <span class="invalid-feedback d-block" role="alert"
+                                                    ng-if="errors.phone">
                                                     <strong><% errors.phone[0] %></strong>
                                                 </span>
                                             </div>
@@ -498,14 +505,16 @@
                                             <div class="form-group">
                                                 <textarea name="message" class="form-control" placeholder="Tin nhắn"></textarea>
 
-                                                <span class="invalid-feedback d-block" role="alert" ng-if="errors.message">
+                                                <span class="invalid-feedback d-block" role="alert"
+                                                    ng-if="errors.message">
                                                     <strong><% errors.message[0] %></strong>
                                                 </span>
                                             </div>
                                         </div>
                                         <div class="col-md-12 col-lg-12">
                                             <div class="wptb-item--button text-center">
-                                                <button class="btn white-opacity creative" type="submit" ng-click="submitContact()">
+                                                <button class="btn white-opacity creative" type="submit"
+                                                    ng-click="submitContact()">
                                                     <span class="btn-wrap">
                                                         <span class="text-first">Gửi liên hệ</span>
                                                     </span>
@@ -564,43 +573,43 @@
     </main>
 @endsection
 @push('scripts')
-<script>
-    app.controller('AboutPage', function($rootScope, $scope, $sce, $interval) {
-        $scope.errors = {};
-        $scope.sendSuccess = false;
+    <script>
+        app.controller('AboutPage', function($rootScope, $scope, $sce, $interval) {
+            $scope.errors = {};
+            $scope.sendSuccess = false;
 
-        $scope.submitContact = function() {
-            var url = "{{ route('front.submitContact') }}";
-            var data = jQuery('#form-contact').serialize();
-            $scope.loading = true;
-            jQuery.ajax({
-                type: 'POST',
-                url: url,
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                data: data,
-                success: function(response) {
-                    if (response.success) {
-                        toastr.success(response.message);
-                        jQuery('#form-contact')[0].reset();
-                        $scope.errors = {};
-                        $scope.sendSuccess = true;
+            $scope.submitContact = function() {
+                var url = "{{ route('front.submitContact') }}";
+                var data = jQuery('#form-contact').serialize();
+                $scope.loading = true;
+                jQuery.ajax({
+                    type: 'POST',
+                    url: url,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: data,
+                    success: function(response) {
+                        if (response.success) {
+                            toastr.success(response.message);
+                            jQuery('#form-contact')[0].reset();
+                            $scope.errors = {};
+                            $scope.sendSuccess = true;
+                            $scope.$apply();
+                        } else {
+                            $scope.errors = response.errors;
+                            toastr.warning(response.message);
+                        }
+                    },
+                    error: function() {
+                        toastr.error('Đã có lỗi xảy ra');
+                    },
+                    complete: function() {
+                        $scope.loading = false;
                         $scope.$apply();
-                    } else {
-                        $scope.errors = response.errors;
-                        toastr.warning(response.message);
                     }
-                },
-                error: function() {
-                    toastr.error('Đã có lỗi xảy ra');
-                },
-                complete: function() {
-                    $scope.loading = false;
-                    $scope.$apply();
-                }
-            });
-        }
-    })
-</script>
+                });
+            }
+        })
+    </script>
 @endpush

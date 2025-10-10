@@ -35,6 +35,12 @@ class ProjectController extends Controller
             ->editColumn('name', function ($object) {
                 return '<a href = "'.route('projects.edit',$object->id).'" title = "Xem chi tiết">'.$object->name.'</a>';
             })
+            ->editColumn('category_name', function ($object) {
+                return $object->category ? $object->category->name : '';
+            })
+            ->editColumn('show_home_page', function ($object) {
+                return $object->show_home_page ? '<span class="badge bg-success">Hiển thị</span>' : '<span class="badge bg-secondary">Ẩn</span>';
+            })
             ->editColumn('created_at', function ($object) {
                 return Carbon::parse($object->created_at)->format("d/m/Y");
             })
@@ -65,7 +71,7 @@ class ProjectController extends Controller
             })
 
             ->addIndexColumn()
-            ->rawColumns(['name','action', 'image'])
+            ->rawColumns(['name','action', 'image', 'show_home_page'])
             ->make(true);
     }
 
@@ -80,7 +86,7 @@ class ProjectController extends Controller
             'name' => 'required|unique:projects,name',
             'status' => 'required|in:0,1',
             'description' => 'nullable',
-            'content' => 'required',
+            'content' => 'nullable',
             'image' => 'required|file|mimes:jpg,jpeg,png|max:2000',
             'galleries' => 'required|array|min:1|max:20',
             'galleries.*.image' => 'required|file|mimes:png,jpg,jpeg|max:10000',
@@ -110,6 +116,8 @@ class ProjectController extends Controller
             $object->location = $request->location;
             $object->service = $request->service;
             $object->completion_time = $request->completion_time;
+            $object->cate_id = $request->cate_id;
+            $object->show_home_page = $request->show_home_page;
             $object->save();
 
             FileHelper::uploadFileToCloudflare($request->image, $object->id, ThisModel::class, 'image');
@@ -138,7 +146,7 @@ class ProjectController extends Controller
             'name' => 'required|unique:projects,name,'.$id,
             'status' => 'required|in:0,1',
             'description' => 'nullable',
-            'content' => 'required',
+            'content' => 'nullable',
             'image' => 'nullable|file|mimes:jpg,jpeg,png|max:2000',
             'galleries' => 'nullable|array|min:1|max:20',
             'galleries.*.image' => 'nullable|file|mimes:png,jpg,jpeg|max:10000',
@@ -171,7 +179,8 @@ class ProjectController extends Controller
             $object->location = $request->location;
             $object->service = $request->service;
             $object->completion_time = $request->completion_time;
-
+            $object->cate_id = $request->cate_id;
+            $object->show_home_page = $request->show_home_page;
             $object->save();
 
             if ($request->image) {

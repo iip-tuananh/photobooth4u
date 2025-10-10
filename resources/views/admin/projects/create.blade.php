@@ -1,11 +1,11 @@
 @extends('layouts.main')
 
 @section('title')
-Thêm mới dự án
+Thêm mới album ảnh
 @endsection
 
 @section('page_title')
-Thêm mới dự án
+Thêm mới album ảnh
 @endsection
 
 @section('content')

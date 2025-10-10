@@ -36,3 +36,9 @@ let filename = e.target.files[0].name;
 $scope.addition_attachments[index].name = filename;
 $scope.$apply();
 })
+
+
+$(document).on('click', '.remove-category', function (e) {
+    e.preventDefault();
+    $scope.form.cate_id = null;
+})

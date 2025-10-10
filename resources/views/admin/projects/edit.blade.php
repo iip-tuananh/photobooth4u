@@ -5,11 +5,11 @@
 @endsection
 
 @section('title')
-Chỉnh sửa dự án
+Chỉnh sửa album ảnh
 @endsection
 
 @section('page_title')
-Chỉnh sửa dự án
+Chỉnh sửa album ảnh
 @endsection
 
 @section('content')

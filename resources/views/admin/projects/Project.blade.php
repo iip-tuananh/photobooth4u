@@ -3,7 +3,7 @@
     class Project extends BaseClass {
         statuses = @json(\App\Model\Admin\Service::STATUSES);
         no_set = [];
-        all_categories = @json(\App\Model\Admin\PostCategory::getForSelect(2));
+        all_categories = @json(\App\Model\Admin\PostCategory::getForSelect(3, true));
 
         before(form) {
             this.image = {};
@@ -52,7 +52,8 @@
                 location: this.location,
                 service: this.service,
                 completion_time: this.completion_time,
-
+                cate_id: this.cate_id,
+                show_home_page: this.show_home_page,
             }
 
             data = jsonToFormData(data);

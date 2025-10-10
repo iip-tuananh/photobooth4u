@@ -4,11 +4,11 @@
 @endsection
 
 @section('title')
-Quản lý dự án
+Quản lý album ảnh
 @endsection
 
 @section('page_title')
-Quản lý dự án
+Quản lý album ảnh
 @endsection
 
 @section('content')
@@ -33,9 +33,11 @@ Quản lý dự án
         {
             data: 'image', title: "Hình ảnh", orderable: false, className: "text-center",
         },
-        {data: 'name',title: 'Dự án'},
+        {data: 'name',title: 'Tên album ảnh'},
+        {data: 'category_name',title: 'Danh mục'},
+        {data: 'show_home_page',title: 'Hiển thị ngoài trang chủ', className: 'text-center'},
         {data: 'created_by',title: 'Người tạo'},
-        {data: 'updated_by',title: 'Người cập nhật'},
+        // {data: 'updated_by',title: 'Người cập nhật'},
         {data: 'updated_at',title: 'Ngày cập nhật'},
         {
             data: 'status',
@@ -57,7 +59,7 @@ Quản lý dự án
         },
         columns: columns,
         search_columns: [
-            {data: 'name', search_type: "text", placeholder: "Tên dự án"},
+            {data: 'name', search_type: "text", placeholder: "Tên album ảnh"},
             {
                 data: 'status', search_type: "select", placeholder: "Trạng thái",
                 column_data: @json(App\Model\Admin\Post::STATUSES)

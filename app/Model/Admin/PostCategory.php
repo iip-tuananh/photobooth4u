@@ -20,6 +20,7 @@ class PostCategory extends BaseModel
 
     public const TYPE_POST = 1;
     public const TYPE_SERVICE = 2;
+    public const TYPE_PROJECT = 3;
 
 
     public const TYPE_ABOUT = 5;

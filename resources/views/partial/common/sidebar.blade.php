@@ -145,7 +145,7 @@
             </li>
 
 
-            <li
+            {{-- <li
                 class="nav-item has-treeview  {{ request()->is('admin/amenities') ||
                 request()->is('admin/amenities/*') ||
                 request()->is('admin/amenities') ||
@@ -170,9 +170,42 @@
                         </a>
                     </li>
                 </ul>
+            </li> --}}
+
+            <li
+                class="nav-item has-treeview  {{ request()->is('admin/projects') || request()->is('admin/projects/*') || request()->is('admin/projects') || request()->is('admin/projects/*') ? 'menu-open' : '' }} ">
+                <a href="#" class="nav-link">
+                    {{-- <i class="nav-icon fas fa-project-diagram"></i> --}}
+                    <i class="nav-icon fas fa-th-list"></i>
+                    <p>
+                        Album ảnh dự án
+                        <i class="fas fa-angle-left right"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ route('ProjectCategory.index') }}"
+                            class="nav-link {{ Request::routeIs('ProjectCategory.index') ? 'active' : '' }}">
+                            <i class="far fas  fa-angle-right nav-icon"></i>
+                            <p>Quản lý danh mục album ảnh</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('projects.index') }}"
+                            class="nav-link {{ Request::routeIs('projects.index') ? 'active' : '' }}">
+                            <i class="far fas  fa-angle-right nav-icon"></i>
+                            <p>Quản lý album ảnh</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('projects.create') }}"
+                            class="nav-link {{ Request::routeIs('projects.create') ? 'active' : '' }}">
+                            <i class="far fas  fa-angle-right nav-icon"></i>
+                            <p>Thêm mới album ảnh</p>
+                        </a>
+                    </li>
+                </ul>
             </li>
-
-
 
 
             <li
@@ -247,67 +280,47 @@
 
 
 
-            {{--            <li class="nav-item has-treeview  {{ request()->is('admin/products') || request()->is('admin/products*') || request()->is('admin/categories') || request()->is('admin/categories*') ? 'menu-open' : '' }} "> --}}
-            {{--                <a href="#" class="nav-link"> --}}
-            {{--                    <i class="nav-icon fab fa-dropbox"></i> --}}
-            {{--                    <p> --}}
-            {{--                        Quản lý hàng hóa --}}
-            {{--                        <i class="fas fa-angle-left right"></i> --}}
-            {{--                    </p> --}}
-            {{--                </a> --}}
-            {{--                <ul class="nav nav-treeview"> --}}
-            {{--                    <li class="nav-item"> --}}
-            {{--                        <a href="{{ route('Category.index') }}" class="nav-link {{ Request::routeIs('Category.index') ? 'active' : '' }}"> --}}
-            {{--                            <i class="far fas  fa-angle-right nav-icon"></i> --}}
-            {{--                            <p>Danh sách danh mục</p> --}}
-            {{--                        </a> --}}
-            {{--                    </li> --}}
-            {{--                    <li class="nav-item"> --}}
-            {{--                        <a href="{{ route('Category.create') }}" class="nav-link {{ Request::routeIs('Category.create') ? 'active' : '' }}"> --}}
-            {{--                            <i class="far fas  fa-angle-right nav-icon"></i> --}}
-            {{--                            <p>Thêm mới danh mục</p> --}}
-            {{--                        </a> --}}
-            {{--                    </li> --}}
-            {{--                    <li class="nav-item"> --}}
-            {{--                        <a href="{{ route('Product.index') }}" class="nav-link {{ Request::routeIs('Product.index') ? 'active' : '' }}"> --}}
-            {{--                            <i class="far fas  fa-angle-right nav-icon"></i> --}}
-            {{--                            <p>Danh sách hàng hóa</p> --}}
-            {{--                        </a> --}}
-            {{--                    </li> --}}
-            {{--                    <li class="nav-item"> --}}
-            {{--                        <a href="{{ route('Product.create') }}" class="nav-link {{ Request::routeIs('Product.create') ? 'active' : '' }}"> --}}
-            {{--                            <i class="far fas  fa-angle-right nav-icon"></i> --}}
-            {{--                            <p>Thêm mới hàng hóa</p> --}}
-            {{--                        </a> --}}
-            {{--                    </li> --}}
-            {{--                </ul> --}}
-            {{--            </li> --}}
+            {{-- <li
+                class="nav-item has-treeview  {{ request()->is('admin/products') || request()->is('admin/products*') || request()->is('admin/categories') || request()->is('admin/categories*') ? 'menu-open' : '' }} ">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fab fa-dropbox"></i>
+                    <p>
+                        Quản lý hàng hóa
+                        <i class="fas fa-angle-left right"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ route('Category.index') }}"
+                            class="nav-link {{ Request::routeIs('Category.index') ? 'active' : '' }}">
+                            <i class="far fas  fa-angle-right nav-icon"></i>
+                            <p>Danh sách danh mục</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('Category.create') }}"
+                            class="nav-link {{ Request::routeIs('Category.create') ? 'active' : '' }}">
+                            <i class="far fas  fa-angle-right nav-icon"></i>
+                            <p>Thêm mới danh mục</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('Product.index') }}"
+                            class="nav-link {{ Request::routeIs('Product.index') ? 'active' : '' }}">
+                            <i class="far fas  fa-angle-right nav-icon"></i>
+                            <p>Danh sách hàng hóa</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('Product.create') }}"
+                            class="nav-link {{ Request::routeIs('Product.create') ? 'active' : '' }}">
+                            <i class="far fas  fa-angle-right nav-icon"></i>
+                            <p>Thêm mới hàng hóa</p>
+                        </a>
+                    </li>
+                </ul>
+            </li> --}}
 
-
-            {{--            <li class="nav-item has-treeview  {{ request()->is('admin/projects') || request()->is('admin/projects/*') || request()->is('admin/projects') || request()->is('admin/projects/*') ? 'menu-open' : '' }} "> --}}
-
-            {{--                <a href="#" class="nav-link"> --}}
-            {{--                    <i class="nav-icon fas fa-project-diagram"></i> --}}
-            {{--                    <p> --}}
-            {{--                        Dự án --}}
-            {{--                        <i class="fas fa-angle-left right"></i> --}}
-            {{--                    </p> --}}
-            {{--                </a> --}}
-            {{--                <ul class="nav nav-treeview"> --}}
-            {{--                    <li class="nav-item"> --}}
-            {{--                        <a href="{{ route('projects.index') }}" class="nav-link {{ Request::routeIs('projects.index') ? 'active' : '' }}"> --}}
-            {{--                            <i class="far fas  fa-angle-right nav-icon"></i> --}}
-            {{--                            <p>Quản lý dự án</p> --}}
-            {{--                        </a> --}}
-            {{--                    </li> --}}
-            {{--                    <li class="nav-item"> --}}
-            {{--                        <a href="{{ route('projects.create') }}" class="nav-link {{ Request::routeIs('projects.create') ? 'active' : '' }}"> --}}
-            {{--                            <i class="far fas  fa-angle-right nav-icon"></i> --}}
-            {{--                            <p>Thêm mới dự án</p> --}}
-            {{--                        </a> --}}
-            {{--                    </li> --}}
-            {{--                </ul> --}}
-            {{--            </li> --}}
 
             {{--            <li class="nav-item has-treeview  {{ request()->is('admin/posts') || request()->is('admin/posts/*') || request()->is('admin/post-categories') || request()->is('admin/post-categories/*') ? 'menu-open' : '' }} "> --}}
 

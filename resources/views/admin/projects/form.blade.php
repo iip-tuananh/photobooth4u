@@ -1,4 +1,12 @@
 <style>
+    .span-right {
+        float: right;
+    }
+
+    span {
+        cursor: pointer;
+    }
+
     .gallery-item {
         padding: 5px;
         padding-bottom: 0;
@@ -37,7 +45,25 @@
 <div class="row">
     <div class="col-sm-8">
         <div class="form-group custom-group mb-4">
-            <label class="form-label required-label">Tên dự án</label>
+            <label class="form-label">Danh mục</label>
+            <ui-select class="" remove-selected="true" ng-model="form.cate_id" theme="select2">
+                <ui-select-match placeholder="Chọn danh mục">
+                    <% $select.selected.name %>
+                    <span class="span-right" ng-if="form.cate_id != 0">
+                        <a class="del-button remove-category"><i class="fa fa-times"></i></a>
+                    </span>
+                </ui-select-match>
+                <ui-select-choices repeat="t.id as t in (form.all_categories | filter: $select.search)">
+                    <span ng-bind="t.name"></span>
+                </ui-select-choices>
+            </ui-select>
+            <span class="invalid-feedback d-block" role="alert">
+                <strong><% errors.cate_id[0] %></strong>
+            </span>
+        </div>
+
+        <div class="form-group custom-group mb-4">
+            <label class="form-label required-label">Tên album ảnh</label>
             <input class="form-control " type="text" ng-model="form.name">
             <span class="invalid-feedback d-block" role="alert">
                 <strong>
@@ -46,7 +72,7 @@
             </span>
         </div>
 
-        <div class="form-group custom-group mb-4">
+        {{-- <div class="form-group custom-group mb-4">
             <label class="form-label">Diện tích</label>
             <input class="form-control " type="text" ng-model="form.area">
             <span class="invalid-feedback d-block" role="alert">
@@ -85,7 +111,7 @@
                     <% errors.completion_time[0] %>
                 </strong>
             </span>
-        </div>
+        </div> --}}
 
         <div class="form-group custom-group mb-4">
             <label class="form-label">Mô tả ngắn</label>
@@ -98,7 +124,7 @@
         </div>
 
         <div class="form-group custom-group mb-4">
-            <label class="form-label required-label">Nội dung</label>
+            <label class="form-label">Nội dung</label>
             <textarea class="form-control ck-editor" ck-editor rows="5" ng-model="form.content"></textarea>
             <span class="invalid-feedback d-block" role="alert">
                 <strong>
@@ -123,6 +149,18 @@
             </span>
         </div>
 
+        <div class="form-group custom-group mb-4">
+            <label class="form-label">Hiển thị ngoài trang chủ</label>
+            <select id="my-select" class="form-control custom-select" ng-model="form.show_home_page">
+                <option value="">Chọn trạng thái</option>
+                <option value="0">Không hiển thị</option>
+                <option value="1">Hiển thị</option>
+            </select>
+            <span class="invalid-feedback d-block" role="alert">
+                <strong><% errors.show_home_page[0] %></strong>
+            </span>
+        </div>
+
         <div class="card mb-4">
             <div class="card-header text-center ">
                 <h5>Ảnh mô tả</h5>
@@ -141,13 +179,14 @@
                                 <label class="mb-0" for="<% form.image.element_id %>">
                                     <i class="glyphicon glyphicon-upload"></i> Chọn ảnh
                                 </label>
-                                <input class="d-none" id="<% form.image.element_id %>" type="file" class="attachment_upload" accept=".jpg,.jpeg,.png">
+                                <input class="d-none" id="<% form.image.element_id %>" type="file"
+                                    class="attachment_upload" accept=".jpg,.jpeg,.png">
                             </div>
                         </div>
                     </div>
                     <span class="invalid-feedback d-block" role="alert">
-        <strong><% errors.image[0] %></strong>
-      </span>
+                        <strong><% errors.image[0] %></strong>
+                    </span>
                 </div>
 
                 <div class="form-group text-center">
@@ -162,34 +201,39 @@
                                     <div class="img-chooser" title="Chọn ảnh">
                                         <label for="<% g.image.element_id %>">
                                             <img ng-src="<% g.image.path %>">
-                                            <input class="d-none" type="file" accept=".jpg,.png,.jpeg" id="<% g.image.element_id %>">
+                                            <input class="d-none" type="file" accept=".jpg,.png,.jpeg"
+                                                id="<% g.image.element_id %>">
                                         </label>
                                     </div>
-                                    <span class="invalid-feedback d-block" role="alert" ng-if="!errors['galleries.' + $index + '.image_obj']">
-                                <strong>
-                                    <% errors['galleries.' + $index + '.image' ][0] %>
-                                </strong>
-                            </span>
-                                    <span class="invalid-feedback d-block" role="alert" ng-if="errors && errors['galleries.' + $index + '.image_obj']">
-                                <strong>
-                                    <% errors['galleries.' + $index + '.image_obj' ][0] %>
-                                </strong>
-                            </span>
+                                    <span class="invalid-feedback d-block" role="alert"
+                                        ng-if="!errors['galleries.' + $index + '.image_obj']">
+                                        <strong>
+                                            <% errors['galleries.' + $index + '.image' ][0] %>
+                                        </strong>
+                                    </span>
+                                    <span class="invalid-feedback d-block" role="alert"
+                                        ng-if="errors && errors['galleries.' + $index + '.image_obj']">
+                                        <strong>
+                                            <% errors['galleries.' + $index + '.image_obj' ][0] %>
+                                        </strong>
+                                    </span>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-4 p-2">
-                            <label class="gallery-item d-flex align-items-center justify-content-center cursor-pointer" for="gallery-chooser">
+                            <label class="gallery-item d-flex align-items-center justify-content-center cursor-pointer"
+                                for="gallery-chooser">
                                 <i class="fa fa-plus fa-2x text-secondary"></i>
                             </label>
-                            <input class="d-none" type="file" accept=".jpg,.png,.jpeg" id="gallery-chooser" multiple>
+                            <input class="d-none" type="file" accept=".jpg,.png,.jpeg" id="gallery-chooser"
+                                multiple>
                         </div>
                     </div>
                     <span class="invalid-feedback d-block" role="alert" ng-if="errors && errors['galleries']">
-                <strong>
-                    <% errors.galleries[0] %>
-                </strong>
-            </span>
+                        <strong>
+                            <% errors.galleries[0] %>
+                        </strong>
+                    </span>
                 </div>
             </div>
         </div>

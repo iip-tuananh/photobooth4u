@@ -28,8 +28,8 @@ Route::group(['namespace' => 'Front'], function () {
     Route::get('/kien-thuc/{slug?}','FrontController@knowledge')->name('front.knowledge');
     Route::get('/chi-tiet-bai-viet-kien-thuc/{slug}','FrontController@getKnowledgeDetail')->name('front.getKnowledgeDetail');
 
-    Route::get('/du-an/{slug?}','FrontController@projects')->name('front.projects');
-    Route::get('/chi-tiet-du-an/{slug}','FrontController@getProjectDetail')->name('front.getProjectDetail');
+    Route::get('/du-an/{slug?}.html','FrontController@projects')->name('front.projects');
+    Route::get('/chi-tiet-du-an/{slug}.html','FrontController@getProjectDetail')->name('front.getProjectDetail');
     Route::get('/tim-kiem','FrontController@searchProducts')->name('front.search');
 
 

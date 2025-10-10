@@ -40,6 +40,24 @@
                                     @endforeach
                                 </ul>
                             </li>
+                            <li class="menu-item menu-item-has-children">
+                                <a href="#">Dự án</a>
+                                <ul class="sub-menu" data-lenis-prevent>
+                                    @foreach ($projectCategories as $projectCategory)
+                                    <li class="menu-item {{ $projectCategory->childs->count() > 0 ? 'menu-item-has-children' : '' }}">
+                                        <a href="{{ route('front.projects', $projectCategory->slug) }}">{{ $projectCategory->name }}</a>
+                                        @if ($projectCategory->childs->count() > 0)
+                                        <ul class="sub-menu" data-lenis-prevent>
+                                            @foreach ($projectCategory->childs as $child)
+                                            <li class="menu-item"><a href="{{ route('front.projects', $child->slug) }}">{{ $child->name }}</a>
+                                            </li>
+                                            @endforeach
+                                        </ul>
+                                        @endif
+                                    </li>
+                                    @endforeach
+                                </ul>
+                            </li>
                             <li class="menu-item">
                                 <a href="{{ route('front.blogs') }}">Tin tức và kinh nghiệm</a>
                             </li>
