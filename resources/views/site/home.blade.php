@@ -41,8 +41,8 @@
                         <!-- Slide Item -->
                         <div class="swiper-slide">
                             <div class="wptb-slider--item">
-                                <div class="wptb-slider--image"
-                                    style="background-image: url('{{ $banner->image ? $banner->image->path : 'https://placehold.co/1920x1080' }}');">
+                                <div class="wptb-slider--image">
+                                    <img src="{{ $banner->image ? $banner->image->path : 'https://placehold.co/1920x1080' }}" alt="img" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
                                 </div>
                                 {{-- <div class="wptb-slider--inner">
                                     <div class="wptb-item--inner">
@@ -69,13 +69,13 @@
                                     </div>
                                 </div> --}}
                                 <!-- Layer Image -->
-                                <div class="wptb-item-layer wptb-item-layer-one">
+                                {{-- <div class="wptb-item-layer wptb-item-layer-one">
                                     <img src="/site/images/layer-4.png" alt="img">
-                                </div>
+                                </div> --}}
                                 <!-- Layer Image -->
-                                <div class="wptb-item-layer wptb-item-layer-two">
+                                {{-- <div class="wptb-item-layer wptb-item-layer-two">
                                     <img src="/site/images/layer-5.png" alt="img">
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                         <!-- End Slide Item -->
